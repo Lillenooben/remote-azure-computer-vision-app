@@ -6,9 +6,6 @@ const fs = require('fs').promises; // Import the fs module for file operations
 const files = require('fs');
 
 
-
-
-
 // Initialize Azure Cognitive Services client
 const key = '0f9877ef09fe4b9cbede47dd30650c3d';
 const endpoint = 'https://huskvarnagrp2.cognitiveservices.azure.com/';
