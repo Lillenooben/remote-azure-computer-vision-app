@@ -145,7 +145,9 @@ app.get("/classification/:uuid", async (req, res) => {
 
     console.log(`${classification}`)
 
-    res.send(`${classification}`)
+    res.send({
+        classification: classification
+    })
 })
 
 app.listen(port, () =>{
