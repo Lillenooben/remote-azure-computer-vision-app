@@ -1,5 +1,5 @@
-import { classifyImage } from './imageurl'
 const express = require('express')
+const classifier = require('./imageurl.js')
 const app = express()
 const port = 3000
 
@@ -15,13 +15,13 @@ app.get("/classification/:uuid", (req, res) => {
     console.log(`Token: ${token}`)
     console.log(`uuid: ${uuid}`)
 
-    var classification = classifyImage(token, uuid).catch((err) => console.error(err));
+    //res.send(`Token: ${token}\n uuid: ${uuid}`)
+
+    var classification = classifier.classifyImage(token, uuid).catch((err) => console.error(err));
 
     console.log(`${classification}`)
 
     res.send(`${classification}`)
-
-    
 })
 
 app.listen(port, () =>{

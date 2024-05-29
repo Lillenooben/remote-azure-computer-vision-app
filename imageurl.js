@@ -17,7 +17,7 @@ const client = createClient(endpoint, credential);
 
 // Bearer token for authentication
 const bearerToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidXNlciIsInV1aWQiOiJkMTRjNTNiMC01YzUzLTRkMjMtYWI1Mi02YTI0YzVkNjNmZDYiLCJpYXQiOjE3MTY5MTIxNzcsImV4cCI6MTcxNjk1NTM3N30.pHUG88HREvQeeCWI3_HZ4quKdVFjxZbCH3quUBG-P1s';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidXNlciIsInV1aWQiOiJkMTRjNTNiMC01YzUzLTRkMjMtYWI1Mi02YTI0YzVkNjNmZDYiLCJpYXQiOjE3MTY5NTg3OTEsImV4cCI6MTcxNzAwMTk5MX0.OO4STRmRptAfESVrCnjLAeZH0jIIsocsNozI2cBIyOw';
 
 // Dynamic import for node-fetch
 async function fetchNodeFetch() {
@@ -118,7 +118,7 @@ async function analyzeImage(imagePath) {
 // Main function to fetch, convert, save, and analyze the image
 async function main() {
     const imageURL =
-        `http://185.216.26.111:8000/location/crash/${uuid}`;
+        `http://185.216.26.111:8000/location/crash/d0936fba-0119-474f-b2eb-611d666195ea`;
     try {
         const imageData = await fetchImageData(imageURL);
         const imageBuffer = arrayBufferToBuffer(imageData);
@@ -131,20 +131,23 @@ async function main() {
     }
 }
 
-module.export = async function classifyImage(token, uuid) {
-    const imageURL = `http://185.216.26.111:8000/location/crash/${uuid}`;
-    var classification = ""
-    try {
-        const imageData = await fetchImageData(imageURL, token);
-        const imageBuffer = arrayBufferToBuffer(imageData);
-        const filename = 'image.png';
-        await saveBufferAsFile(imageBuffer, filename);
-        const imagePath = '../image.png';
-        classification = analyzeImage(imagePath); // Analyze the image from the original URL
-    } catch (error) {
-        console.error('Error in processing the image:', error);
+module.exports = {
+    classifyImage: function(token, uuid) {
+        const imageURL = `http://185.216.26.111:8000/location/crash/${uuid}`;
+        var classification = ""
+        try {
+            const imageData = fetchImageData(imageURL, token);
+            const imageBuffer = arrayBufferToBuffer(imageData);
+            const filename = 'image.png';
+            saveBufferAsFile(imageBuffer, filename);
+            const imagePath = '../image.png';
+            classification = analyzeImage(imagePath); // Analyze the image from the original URL
+        } catch (error) {
+            console.error('Error in processing the image:', error);
+        }
+        return classification
     }
-    return classification
 }
 
-main().catch((err) => console.error(err));
+
+//main().catch((err) => console.error(err));
