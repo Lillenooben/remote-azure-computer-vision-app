@@ -5,7 +5,7 @@ const { AzureKeyCredential } = require('@azure/core-auth');
 const fs = require('fs').promises; // Import the fs module for file operations
 const files = require('fs');
 const app = express()
-const port = 8080
+const port = 3000
 
 // Initialize Azure Cognitive Services client
 const key = '0f9877ef09fe4b9cbede47dd30650c3d';
